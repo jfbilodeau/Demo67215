@@ -52,6 +52,6 @@ jobs:
     - name: Deploy to Azure App Service
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'Demo67215'
+        app-name: 'Demo67215prod'
         slot-name: 'production'
         package: out
