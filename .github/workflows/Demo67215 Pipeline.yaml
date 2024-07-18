@@ -1,4 +1,4 @@
-"name: Demo67215 CI/CD Pipeline
+name: Demo67215 CI/CD Pipeline
 
 # Trigger the workflow on push or pull request events to the main branch
 on:
