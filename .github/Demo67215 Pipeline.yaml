@@ -1,0 +1,39 @@
+name: Demo67215 CI/CD Pipeline
+
+# Trigger the workflow on push or pull request events to the main branch
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    # Use the latest version of Ubuntu as the runner
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the code from the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Step 2: Setup the .NET environment with version 8.0.x
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    # Step 3: Install project dependencies
+    - name: Install dependencies
+      run: dotnet restore
+
+    # Step 4: Build the application in Release configuration
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+
+    # Step 5: Run tests with normal verbosity
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
