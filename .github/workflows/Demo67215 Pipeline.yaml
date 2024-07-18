@@ -38,4 +38,12 @@ jobs:
     - name: Test
       run: dotnet test --no-restore --verbosity normal
 
-      
+    # Step 6: Deploy ARM template
+    - name: Deploy ARM template
+      uses: Azure/arm-deploy@v1
+      with:
+        subscriptionId: '72453083-3ca3-4638-9779-89eca7e2fd83'
+        resourceGroupName: 'Demo67215'
+        template: ./deployment/deploy.json
+        parameters: ./deployment/deploy.parameters.prod.json
+        deploymentMode: 'Incremental'
