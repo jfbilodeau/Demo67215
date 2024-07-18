@@ -1,4 +1,4 @@
-name: Demo67215 CI/CD Pipeline
+"name: Demo67215 CI/CD Pipeline
 
 # Trigger the workflow on push or pull request events to the main branch
 on:
@@ -16,12 +16,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # step 0: Log in using the AZ CLI
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
     # Step 1: Checkout the code from the repository
     - name: Checkout code
       uses: actions/checkout@v3
 
     # Step 2: Setup the .NET environment with version 8.0.x
-    - name: Setup .NET
+    - name: Setup .NET.
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0.x'
