@@ -16,18 +16,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # step 0: Log in using the AZ CLI
-    - name: Azure Login
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-    
     # Step 1: Checkout the code from the repository
     - name: Checkout code
       uses: actions/checkout@v3
 
     # Step 2: Setup the .NET environment with version 8.0.x
-    - name: Setup .NET.
+    - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0.x'
@@ -44,4 +38,12 @@ jobs:
     - name: Test
       run: dotnet test --no-restore --verbosity normal
 
-      
+    # Step 6: Deploy ARM template
+    - name: Deploy ARM template
+      uses: Azure/arm-deploy@v1
+      with:
+        subscriptionId: '72453083-3ca3-4638-9779-89eca7e2fd83'
+        resourceGroupName: 'Demo67215'
+        template: ./deployment/deploy.json
+        parameters: ./deployment/deploy.parameters.prod.json
+        deploymentMode: 'Incremental'
